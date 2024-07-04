@@ -1,3 +1,13 @@
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+//Redux
+import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "@/state/store";
+
+//File
+import { loginUser } from "@/state/Auth/AuthSlice";
+
 //React-form / zod
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,7 +17,6 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,9 +24,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { loggedInUser } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    if (loggedInUser) {
+      navigate("/");
+    }
+  }, []);
+
   const formSchema = z.object({
     email: z
       .string()
@@ -37,7 +55,6 @@ const Login = () => {
       }),
   });
 
-  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,7 +63,9 @@ const Login = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {};
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    dispatch(loginUser(values));
+  };
 
   return (
     <div className="flex justify-center items-center h-screen">

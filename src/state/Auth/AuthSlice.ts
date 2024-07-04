@@ -1,19 +1,71 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { account, ID } from "@/appwrite/config";
 
-type authState = {
-  loading: boolean;
-  user: null;
+type loginUserState = {
+  email: string;
+  password: string;
 };
 
-const initialState: authState = {
-  loading: true,
-  user: null,
+const initialState = {
+  loggedInUser: null,
+  email: "",
+  password: "",
+  name: "",
 };
 
-const dataSlice = createSlice({
-  name: "Auth",
-  initialState,
-  reducers: {},
+export const loginUser = createAsyncThunk(
+  "loginUser",
+  async ({ email, password }: loginUserState) => {
+    try {
+      await account.createEmailPasswordSession(email, password);
+      let accountDetails = await account.get();
+      return accountDetails;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const registerUser = createAsyncThunk(
+  "registerUser",
+  async ({ email, password }: loginUserState) => {
+    try {
+      await account.create(ID.unique(), email, password);
+      await account.createEmailPasswordSession(email, password);
+      let accountDetails = await account.get();
+      return accountDetails;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const logoutUser = createAsyncThunk("logoutUser", async () => {
+  try {
+    let response = await account.deleteSession("current");
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 });
 
-export default dataSlice.reducer;
+const authSlice = createSlice({
+  name: "Auth",
+  initialState,
+  reducers: {
+    logoutUser: () => {},
+    registerUser: () => {},
+    checkUserStatus: () => {},
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.fulfilled, (state, action) => {})
+      .addCase(logoutUser.fulfilled, (state, action) => {
+        state.loggedInUser = null;
+      });
+  },
+});
+
+export const { checkUserStatus } = authSlice.actions;
+
+export default authSlice.reducer;
