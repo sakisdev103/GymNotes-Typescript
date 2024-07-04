@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { account, ID } from "@/appwrite/config";
+import { toast } from "react-toastify";
 
 type initialSliceState = {
   loggedInUser: any;
@@ -17,6 +18,14 @@ const initialState: initialSliceState = {
   loading: false,
 };
 
+export const getUserData = async () => {
+  try {
+    return account.get();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const loginUser = createAsyncThunk(
   "loginUser",
   async ({ email, password }: loginUserState) => {
@@ -25,7 +34,7 @@ export const loginUser = createAsyncThunk(
       let accountDetails = await account.get();
       return accountDetails;
     } catch (error) {
-      console.log(error);
+      return (error as any).message;
     }
   }
 );
@@ -39,7 +48,7 @@ export const registerUser = createAsyncThunk(
       let accountDetails = await account.get();
       return accountDetails;
     } catch (error) {
-      console.log(error);
+      return (error as any).message;
     }
   }
 );
@@ -62,20 +71,33 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
+        toast("Logging in...");
         state.loading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.loggedInUser = action.payload;
+        if (typeof action.payload === "string") {
+          toast.dismiss();
+          toast.error(action.payload);
+        } else {
+          state.loggedInUser = action.payload;
+        }
         state.loading = false;
       })
       .addCase(registerUser.pending, (state) => {
+        toast("Creating user...");
         state.loading = true;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        state.loggedInUser = action.payload;
+        if (typeof action.payload === "string") {
+          toast.dismiss();
+          toast.error(action.payload);
+        } else {
+          state.loggedInUser = action.payload;
+        }
         state.loading = false;
       })
       .addCase(logoutUser.pending, (state) => {
+        toast("Logging out...");
         state.loading = true;
       })
       .addCase(logoutUser.fulfilled, (state) => {

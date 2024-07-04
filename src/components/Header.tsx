@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 
 //Redux
-import { useSelector, useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "@/state/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/state/store";
 
 //File
+import Alert from "./Alert";
 import { logoutUser } from "@/state/Auth/AuthSlice";
 
 //UI
@@ -16,15 +17,18 @@ import { Plus, User2 } from "lucide-react";
 const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
   return (
-    <div className="container flex justify-between p-8">
-      <Button variant={"ghost"} onClick={() => dispatch(logoutUser())}>
-        <User2 />
-      </Button>
-      <Button asChild variant={"ghost"}>
-        <Link to="/categoriesList">
-          <Plus />
-        </Link>
-      </Button>
+    <div>
+      <Alert />
+      <div className="container flex justify-between p-8">
+        <Button variant={"ghost"} onClick={() => dispatch(logoutUser())}>
+          <User2 />
+        </Button>
+        <Button asChild variant={"ghost"}>
+          <Link to="/categoriesList">
+            <Plus />
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 };
