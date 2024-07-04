@@ -33,42 +33,41 @@ const SelectedExercise = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="w-1/2 space-y-8"
-        >
-          <FormField
-            control={form.control}
-            name="weight"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Weight</FormLabel>
-                <FormControl>
-                  <Input type="number" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="reps"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Reps</FormLabel>
-                <FormControl>
-                  <Input type="number" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" className="w-full">
-            Save
-          </Button>
-        </form>
-      </Form>
+      <div className="w-3/4 sm:w-2/4 lg:w-2/5">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-8">
+            <FormField
+              control={form.control}
+              name="weight"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Weight</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="reps"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Reps</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="w-full">
+              Save
+            </Button>
+          </form>
+        </Form>
+      </div>
     </div>
   );
 };

@@ -1,16 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { account, ID } from "@/appwrite/config";
 
+type initialSliceState = {
+  loggedInUser: any;
+  loading: boolean;
+};
+
 type loginUserState = {
   email: string;
   password: string;
+  username?: string;
 };
 
-const initialState = {
+const initialState: initialSliceState = {
   loggedInUser: null,
-  email: "",
-  password: "",
-  name: "",
+  loading: false,
 };
 
 export const loginUser = createAsyncThunk(
@@ -28,9 +32,9 @@ export const loginUser = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
   "registerUser",
-  async ({ email, password }: loginUserState) => {
+  async ({ email, password, username }: loginUserState) => {
     try {
-      await account.create(ID.unique(), email, password);
+      await account.create(ID.unique(), email, password, username);
       await account.createEmailPasswordSession(email, password);
       let accountDetails = await account.get();
       return accountDetails;
@@ -53,15 +57,30 @@ const authSlice = createSlice({
   name: "Auth",
   initialState,
   reducers: {
-    logoutUser: () => {},
-    registerUser: () => {},
     checkUserStatus: () => {},
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.fulfilled, (state, action) => {})
-      .addCase(logoutUser.fulfilled, (state, action) => {
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loggedInUser = action.payload;
+        state.loading = false;
+      })
+      .addCase(registerUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.loggedInUser = action.payload;
+        state.loading = false;
+      })
+      .addCase(logoutUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
         state.loggedInUser = null;
+        state.loading = false;
       });
   },
 });

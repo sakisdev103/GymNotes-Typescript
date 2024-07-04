@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
 
 //File
-import { loginUser } from "@/state/Auth/AuthSlice";
+import { loginUser, logoutUser } from "@/state/Auth/AuthSlice";
 
 //React-form / zod
 import { useForm } from "react-hook-form";
@@ -34,7 +34,7 @@ const Login = () => {
     if (loggedInUser) {
       navigate("/");
     }
-  }, []);
+  }, [loggedInUser]);
 
   const formSchema = z.object({
     email: z
@@ -69,7 +69,7 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div>
+      <div className="w-3/4 sm:w-2/4 lg:w-2/5">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -104,11 +104,12 @@ const Login = () => {
           </form>
         </Form>
         <p>
-          Don't hane an account?
+          Don't have an account?
           <Button variant="link" asChild>
             <Link to="/register">Register</Link>
           </Button>
         </p>
+        {/* <Button onClick={() => dispatch(logoutUser())}>log out</Button> */}
       </div>
     </div>
   );
