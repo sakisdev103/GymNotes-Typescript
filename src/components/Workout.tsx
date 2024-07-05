@@ -1,3 +1,13 @@
+import { useEffect, useState } from "react";
+
+import { useSelector } from "react-redux";
+
+//File
+import db from "@/appwrite/database";
+
+//Types
+import { Models } from "appwrite";
+
 //Ui
 import {
   Table,
@@ -8,8 +18,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
+import { RootState } from "@/state/store";
 const Workout = () => {
+  // const [workout, setWorkout] = useState<Models.Document[] | null>(null);
+
+  // const init = async () => {
+  //   const { documents } = await db.workouts.list();
+  //   setWorkout(documents);
+  // };
+  // useEffect(() => {
+  //   init();
+  // }, []);
+
+  const { workouts } = useSelector((store: RootState) => store.workout);
+  console.log(workouts.documents);
+
   return (
     <div className="container">
       <Table>
@@ -22,11 +45,17 @@ const Workout = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell className="font-medium">Lat Pull Down</TableCell>
-            <TableCell>60</TableCell>
-            <TableCell className="text-right">10</TableCell>
-          </TableRow>
+          {workouts.documents.map(
+            ({ username, exercise, weight, reps }: Models.Document) => {
+              return (
+                <TableRow key={username}>
+                  <TableCell className="font-medium">{exercise}</TableCell>
+                  <TableCell>{weight}</TableCell>
+                  <TableCell className="text-right">{reps}</TableCell>
+                </TableRow>
+              );
+            }
+          )}
         </TableBody>
       </Table>
     </div>
