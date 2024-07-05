@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
 
 //File
-import Alert from "@/components/Alert";
 import { registerUser } from "@/state/Auth/AuthSlice";
 
 //React-form / zod
@@ -75,7 +74,6 @@ const Register = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <Alert />
       <div className="w-3/4 sm:w-2/4 lg:w-2/5">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

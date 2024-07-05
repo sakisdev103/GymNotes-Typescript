@@ -80,6 +80,7 @@ const authSlice = createSlice({
           toast.error(action.payload);
         } else {
           state.loggedInUser = action.payload;
+          toast.dismiss();
         }
         state.loading = false;
       })
@@ -93,6 +94,7 @@ const authSlice = createSlice({
           toast.error(action.payload);
         } else {
           state.loggedInUser = action.payload;
+          toast.dismiss();
         }
         state.loading = false;
       })
@@ -103,6 +105,7 @@ const authSlice = createSlice({
       .addCase(logoutUser.fulfilled, (state) => {
         state.loggedInUser = null;
         state.loading = false;
+        toast.dismiss();
       });
   },
 });

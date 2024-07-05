@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/state/store";
 
 //File
-import Alert from "./Alert";
 import { logoutUser } from "@/state/Auth/AuthSlice";
 
 //UI
@@ -18,7 +17,6 @@ const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
   return (
     <div>
-      <Alert />
       <div className="container flex justify-between p-8">
         <Button variant={"ghost"} onClick={() => dispatch(logoutUser())}>
           <User2 />
