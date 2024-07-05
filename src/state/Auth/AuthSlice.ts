@@ -18,13 +18,16 @@ const initialState: initialSliceState = {
   loading: false,
 };
 
-export const getUserData = async () => {
+export const getUserData = createAsyncThunk("getUserData", async () => {
   try {
-    return account.get();
+    return await account.get();
   } catch (error) {
-    console.log(error);
+    if (((error as any).code = 401)) {
+      console.log("not logged in");
+      return null;
+    }
   }
-};
+});
 
 export const loginUser = createAsyncThunk(
   "loginUser",
@@ -69,7 +72,14 @@ const authSlice = createSlice({
     checkUserStatus: () => {},
   },
   extraReducers: (builder) => {
+    builder.addCase(getUserData.pending, (state) => {
+      state.loading = true;
+    });
     builder
+      .addCase(getUserData.fulfilled, (state, action) => {
+        state.loggedInUser = action.payload;
+        state.loading = false;
+      })
       .addCase(loginUser.pending, (state) => {
         toast("Logging in...");
         state.loading = true;
