@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 //Files
 import { customFetch } from "@/utils/customFetch";
 import { GoBack } from "@/components";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 
 //UI
 import {
@@ -24,9 +25,8 @@ const Categories = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSkeleton />;
   }
-  console.log(categories?.data);
 
   return (
     <div>

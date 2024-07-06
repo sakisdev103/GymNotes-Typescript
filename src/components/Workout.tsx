@@ -16,15 +16,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useEffect } from "react";
 
 //React-Query
 import { useQuery } from "react-query";
 
+//Icon
+import { Loader2 } from "lucide-react";
+
 const Workout = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { loggedInUser } = useSelector((state: RootState) => state.auth);
-  // const workouts = useSelector((store: RootState) => store.workout.documents);
 
   const { data, isLoading } = useQuery({
     queryKey: ["data"],
@@ -32,7 +33,11 @@ const Workout = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-16 w-16 animate-spin" />
+      </div>
+    );
   }
 
   return (
@@ -55,7 +60,9 @@ const Workout = () => {
               if (username === loggedInUser.name) {
                 return (
                   <TableRow key={index}>
-                    <TableCell className="font-medium">{exercise}</TableCell>
+                    <TableCell className="font-medium">
+                      {exercise.toUpperCase()}
+                    </TableCell>
                     <TableCell>{weight}</TableCell>
                     <TableCell className="text-right">{reps}</TableCell>
                   </TableRow>

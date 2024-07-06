@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { customFetch } from "@/utils/customFetch";
 import { GoBack } from "@/components";
 import SelectedExercise from "./SelectedExercise";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 
 //Redux
 import { useDispatch } from "react-redux";
@@ -34,7 +35,7 @@ const SelectedCategory = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSkeleton />;
   }
 
   type state = {
