@@ -55,9 +55,9 @@ const SelectedCategory = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {exercises?.data.map(({ name }: state) => {
+            {exercises?.data.map(({ name }: state, index: number) => {
               return (
-                <TableRow key={name}>
+                <TableRow key={index}>
                   <TableCell className="font-medium">
                     <Dialog>
                       <DialogTrigger asChild>

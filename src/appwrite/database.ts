@@ -13,7 +13,7 @@ const db: any = {};
 
 collections.forEach((col) => {
   db[col.name] = {
-    create: (payload: any) =>
+    create: (payload: Omit<Document, keyof Models.Document>) =>
       databases.createDocument(col.dbId, col.id, ID.unique(), payload),
     update: (id: any, payload: any) =>
       databases.updateDocument(col.dbId, col.id, id, payload),

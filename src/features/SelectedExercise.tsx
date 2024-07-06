@@ -1,3 +1,10 @@
+//File
+import { create } from "@/state/workout/workoutSlice";
+
+//Redux
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/state/store";
+
 //React-form / zod
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +25,12 @@ import { Button } from "@/components/ui/button";
 const SelectedExercise = ({ exercise }: { exercise: string }) => {
   console.log(exercise);
 
+  const { loggedInUser } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch<AppDispatch>();
+
   const formSchema = z.object({
+    username: z.string(),
+    exercise: z.string(),
     weight: z.coerce.number().min(1).max(1000),
     reps: z.coerce.number().min(1).max(1000000),
   });
@@ -26,12 +38,17 @@ const SelectedExercise = ({ exercise }: { exercise: string }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      username: loggedInUser.name,
+      exercise: exercise,
       weight: 0,
       reps: 0,
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {};
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log(values);
+    dispatch(create(values));
+  };
 
   return (
     <Form {...form}>
