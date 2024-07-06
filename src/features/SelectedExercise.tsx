@@ -12,6 +12,14 @@ import { z } from "zod";
 
 //UI
 import {
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
+import {
   Form,
   FormControl,
   FormField,
@@ -23,9 +31,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 const SelectedExercise = ({ exercise }: { exercise: string }) => {
-  console.log(exercise);
-
   const { loggedInUser } = useSelector((state: RootState) => state.auth);
+
   const dispatch = useDispatch<AppDispatch>();
 
   const formSchema = z.object({
@@ -46,44 +53,53 @@ const SelectedExercise = ({ exercise }: { exercise: string }) => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
     dispatch(create(values));
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-8">
-        <FormField
-          control={form.control}
-          name="weight"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Weight</FormLabel>
-              <FormControl>
-                <Input type="number" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="reps"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Reps</FormLabel>
-              <FormControl>
-                <Input type="number" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" className="w-full">
-          Save
-        </Button>
-      </form>
-    </Form>
+    <>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{exercise.toUpperCase()}</DialogTitle>
+          <DialogDescription>Add workout details.</DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-8">
+            <FormField
+              control={form.control}
+              name="weight"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Weight</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="reps"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Reps</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <DialogClose asChild>
+              <Button type="submit" className="w-full">
+                Save
+              </Button>
+            </DialogClose>
+          </form>
+        </Form>
+      </DialogContent>
+    </>
   );
 };
 export default SelectedExercise;

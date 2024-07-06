@@ -1,7 +1,13 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
 //Files
 import { customFetch } from "@/utils/customFetch";
 import { GoBack } from "@/components";
+import SelectedExercise from "./SelectedExercise";
+
+//Redux
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/state/store";
 
 //UI
 import {
@@ -13,22 +19,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
 //React-Query
 import { useQuery } from "react-query";
-import SelectedExercise from "./SelectedExercise";
 
 const SelectedCategory = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const { id } = useParams();
-  console.log(id);
 
   const { data: exercises, isLoading } = useQuery({
     queryKey: ["exercises"],
@@ -38,7 +36,6 @@ const SelectedCategory = () => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  console.log(exercises?.data);
 
   type state = {
     name: string;
@@ -61,18 +58,9 @@ const SelectedCategory = () => {
                   <TableCell className="font-medium">
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button variant={"link"}>{name}</Button>
+                        <Button variant={"link"}>{name.toUpperCase()}</Button>
                       </DialogTrigger>
-                      <DialogContent>
-                        <DialogHeader>
-                          <DialogTitle>Save Workout</DialogTitle>
-                          <DialogDescription>
-                            Add weight and reps for the selected exercise. Click
-                            save when you're done.
-                          </DialogDescription>
-                        </DialogHeader>
-                        <SelectedExercise exercise={name} />
-                      </DialogContent>
+                      <SelectedExercise exercise={name} />
                     </Dialog>
                   </TableCell>
                 </TableRow>

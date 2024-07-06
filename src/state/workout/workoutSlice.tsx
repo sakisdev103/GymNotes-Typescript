@@ -1,15 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { redirect } from "react-router-dom";
 
 //File
 import db from "@/appwrite/database";
 import { toast } from "react-toastify";
 import { Models } from "appwrite";
 
-const initialState = {
-  loading: false,
-  workouts: await db.workouts.list(),
+const initialState: Models.DocumentList<Models.Document> = {
+  total: 0,
+  documents: [],
 };
+
+export const getWorkouts = createAsyncThunk("getWorkouts", async () => {
+  try {
+    return await db.workouts.list();
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 export const create = createAsyncThunk(
   "create",
@@ -29,16 +36,12 @@ const workoutSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(create.pending, (state) => {
-        state.loading = true;
+      .addCase(getWorkouts.fulfilled, (state, action) => {
+        state.documents = action.payload.documents;
       })
       .addCase(create.fulfilled, (state, action) => {
-        state.workouts = action.payload;
-        state.loading = false;
+        state.documents = action.payload;
         toast.success("Successfully added workout!");
-        // setTimeout(() => {
-        //   location.replace("/");
-        // }, 2000);
       });
   },
 });

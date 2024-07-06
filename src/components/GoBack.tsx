@@ -8,7 +8,7 @@ const GoBack = () => {
   return (
     <div className="container px-8 my-8">
       <Button variant={"ghost"} onClick={() => navigate(-1)}>
-        <ArrowLeft onClick={() => navigate(-1)} />
+        <ArrowLeft />
       </Button>
     </div>
   );

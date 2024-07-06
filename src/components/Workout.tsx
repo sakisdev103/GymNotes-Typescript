@@ -1,4 +1,7 @@
-import { useSelector } from "react-redux";
+//Redux
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/state/store";
+import { getWorkouts } from "@/state/workout/workoutSlice";
 
 //Types
 import { Models } from "appwrite";
@@ -13,10 +16,24 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { RootState } from "@/state/store";
+import { useEffect } from "react";
+
+//React-Query
+import { useQuery } from "react-query";
+
 const Workout = () => {
-  const { workouts } = useSelector((store: RootState) => store.workout);
+  const dispatch = useDispatch<AppDispatch>();
   const { loggedInUser } = useSelector((state: RootState) => state.auth);
+  // const workouts = useSelector((store: RootState) => store.workout.documents);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["data"],
+    queryFn: () => dispatch(getWorkouts()),
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="container">
@@ -30,7 +47,7 @@ const Workout = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {workouts.documents.map(
+          {data?.payload.documents?.map(
             (
               { username, exercise, weight, reps }: Models.Document,
               index: number
