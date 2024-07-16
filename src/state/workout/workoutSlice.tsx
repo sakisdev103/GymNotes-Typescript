@@ -30,6 +30,24 @@ export const create = createAsyncThunk(
   }
 );
 
+export const updateWorkout = createAsyncThunk(
+  "updateWorkout",
+  async ({
+    id,
+    payload,
+  }: {
+    id: string;
+    payload: Omit<Document, keyof Models.Document>;
+  }) => {
+    try {
+      const response = await db.workouts.update(id, payload);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const workoutSlice = createSlice({
   name: "Workouts",
   initialState,
@@ -42,6 +60,11 @@ const workoutSlice = createSlice({
       .addCase(create.fulfilled, (state, action) => {
         state.documents = action.payload;
         toast.success("Successfully added workout!");
+      })
+      .addCase(updateWorkout.fulfilled, (state, action) => {
+        state.documents = action.payload;
+        toast.success("Successfully updated workout!");
+        console.log(action.payload);
       });
   },
 });

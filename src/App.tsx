@@ -10,7 +10,7 @@ import {
   Home,
   Profile,
   CategoriesList,
-  SelectedCategory,
+  Exercises,
 } from "./features";
 
 //React-Query
@@ -30,7 +30,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/categoriesList" element={<CategoriesList />} />
-            <Route path="/categoriesList/:id" element={<SelectedCategory />} />
+            <Route path="/categoriesList/:id" element={<Exercises />} />
           </Route>
         </Routes>
       </Router>

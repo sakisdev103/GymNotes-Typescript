@@ -39,17 +39,23 @@ const Categories = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {categories?.data.map((category: string) => {
-              return (
-                <TableRow key={category}>
-                  <TableCell className="font-medium">
-                    <Button variant={"link"} asChild>
-                      <Link to={`./${category}`}>{category.toUpperCase()}</Link>
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+            {categories?.data
+              .filter(
+                (category: string) => category !== "cardiovascular system"
+              )
+              .map((category: string) => {
+                return (
+                  <TableRow key={category}>
+                    <TableCell className="font-medium">
+                      <Button variant={"link"} asChild>
+                        <Link to={`./${category}`}>
+                          {category.toUpperCase()}
+                        </Link>
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
       </div>

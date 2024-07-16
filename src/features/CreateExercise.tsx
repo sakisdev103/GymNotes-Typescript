@@ -30,7 +30,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-const SelectedExercise = ({ exercise }: { exercise: string }) => {
+const CreateExercise = ({ exercise }: { exercise: string }) => {
   const { loggedInUser } = useSelector((state: RootState) => state.auth);
   const { date } = useSelector((state: RootState) => state.date);
 
@@ -105,4 +105,4 @@ const SelectedExercise = ({ exercise }: { exercise: string }) => {
     </>
   );
 };
-export default SelectedExercise;
+export default CreateExercise;

@@ -15,10 +15,10 @@ collections.forEach((col) => {
   db[col.name] = {
     create: (payload: Omit<Document, keyof Models.Document>) =>
       databases.createDocument(col.dbId, col.id, ID.unique(), payload),
-    update: (id: any, payload: any) =>
+    update: (id: string, payload: Omit<Document, keyof Models.Document>) =>
       databases.updateDocument(col.dbId, col.id, id, payload),
-    get: (id: any) => databases.getDocument(col.dbId, col.id, id),
-    delete: (id: any) => databases.deleteDocument(col.dbId, col.id, id),
+    get: (id: string) => databases.getDocument(col.dbId, col.id, id),
+    delete: (id: string) => databases.deleteDocument(col.dbId, col.id, id),
     list: () => databases.listDocuments(col.dbId, col.id),
   };
 });

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 //Files
 import { customFetch } from "@/utils/customFetch";
 import { GoBack } from "@/components";
-import SelectedExercise from "./SelectedExercise";
+import CreateExercise from "./CreateExercise";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
 
 //Redux
@@ -25,7 +25,7 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 //React-Query
 import { useQuery } from "react-query";
 
-const SelectedCategory = () => {
+const Exercises = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { id } = useParams();
 
@@ -61,7 +61,7 @@ const SelectedCategory = () => {
                       <DialogTrigger asChild>
                         <Button variant={"link"}>{name.toUpperCase()}</Button>
                       </DialogTrigger>
-                      <SelectedExercise exercise={name} />
+                      <CreateExercise exercise={name} />
                     </Dialog>
                   </TableCell>
                 </TableRow>
@@ -73,4 +73,4 @@ const SelectedCategory = () => {
     </div>
   );
 };
-export default SelectedCategory;
+export default Exercises;
