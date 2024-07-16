@@ -26,6 +26,7 @@ import { Loader2 } from "lucide-react";
 const Workout = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { loggedInUser } = useSelector((state: RootState) => state.auth);
+  const stateDate = useSelector((state: RootState) => state.date.date);
 
   const { data, isLoading } = useQuery({
     queryKey: ["data"],
@@ -48,25 +49,29 @@ const Workout = () => {
           <TableRow>
             <TableHead>Exercise</TableHead>
             <TableHead>Weight</TableHead>
-            <TableHead className="text-right">Reps</TableHead>
+            <TableHead>Reps</TableHead>
+            <TableHead className="text-right">Date</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {data?.payload.documents?.map(
             (
-              { username, exercise, weight, reps }: Models.Document,
+              { username, exercise, weight, reps, date }: Models.Document,
               index: number
             ) => {
               if (username === loggedInUser.name) {
-                return (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium">
-                      {exercise.toUpperCase()}
-                    </TableCell>
-                    <TableCell>{weight}</TableCell>
-                    <TableCell className="text-right">{reps}</TableCell>
-                  </TableRow>
-                );
+                if (stateDate === date) {
+                  return (
+                    <TableRow key={index}>
+                      <TableCell className="font-medium">
+                        {exercise.toUpperCase()}
+                      </TableCell>
+                      <TableCell>{weight}</TableCell>
+                      <TableCell>{reps}</TableCell>
+                      <TableCell className="text-right">{date}</TableCell>
+                    </TableRow>
+                  );
+                }
               }
             }
           )}

@@ -12,7 +12,6 @@ const datesSlice = createSlice({
   reducers: {
     updateDates: (state, action) => {
       state.date = action.payload;
-      console.log(action.payload);
     },
   },
 });

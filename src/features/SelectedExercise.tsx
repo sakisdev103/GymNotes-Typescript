@@ -32,6 +32,7 @@ import { Button } from "@/components/ui/button";
 
 const SelectedExercise = ({ exercise }: { exercise: string }) => {
   const { loggedInUser } = useSelector((state: RootState) => state.auth);
+  const { date } = useSelector((state: RootState) => state.date);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -40,6 +41,7 @@ const SelectedExercise = ({ exercise }: { exercise: string }) => {
     exercise: z.string(),
     weight: z.coerce.number().min(1).max(1000),
     reps: z.coerce.number().min(1).max(1000000),
+    date: z.any(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -49,6 +51,7 @@ const SelectedExercise = ({ exercise }: { exercise: string }) => {
       exercise: exercise,
       weight: 0,
       reps: 0,
+      date,
     },
   });
 
