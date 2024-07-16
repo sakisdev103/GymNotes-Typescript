@@ -1,12 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./Auth/AuthSlice";
 import workoutReducer from "./workout/workoutSlice";
+import dateReducer from "./Date/dateSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     workout: workoutReducer,
+    date: dateReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
