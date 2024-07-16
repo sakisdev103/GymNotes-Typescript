@@ -42,7 +42,7 @@ const Workout = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container my-8">
       <Table>
         <TableCaption>A list of your recent workouts.</TableCaption>
         <TableHeader>

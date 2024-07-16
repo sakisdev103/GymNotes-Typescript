@@ -13,6 +13,9 @@ import { Button } from "./ui/button";
 
 import { format } from "date-fns";
 
+//Icons
+import { Calendar as CalendarIcon } from "lucide-react";
+
 const DateFilter = () => {
   const initialRange = useSelector((state: RootState) => state.date.date);
   const [date, setDate] = React.useState<Date | undefined>(initialRange);
@@ -29,7 +32,8 @@ const DateFilter = () => {
     <div className="container text-center">
       <Popover>
         <PopoverTrigger asChild>
-          <Button>
+          <Button className="gap-1">
+            <CalendarIcon className="w-5 h-5" />
             {date ? (
               format(date as Date, "LLL dd, y")
             ) : (
