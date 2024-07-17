@@ -23,7 +23,7 @@ import { Button } from "./ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
 //React-Query
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 
 //Icon
 import { Loader2, Pencil, Trash2 } from "lucide-react";
@@ -32,6 +32,10 @@ const Workout = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { loggedInUser } = useSelector((state: RootState) => state.auth);
   const stateDate = useSelector((state: RootState) => state.date.date);
+
+  const queryClient = useQueryClient();
+
+  queryClient.invalidateQueries();
 
   const { data, isLoading } = useQuery({
     queryKey: ["data"],
