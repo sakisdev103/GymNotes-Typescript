@@ -4,7 +4,7 @@ import { UpdateExercise } from "@/features";
 //Redux
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
-import { deleteWorkout, getWorkouts } from "@/state/workout/workoutSlice";
+import { getWorkouts } from "@/state/workout/workoutSlice";
 
 //Types
 import { Models } from "appwrite";
@@ -13,7 +13,6 @@ import { Models } from "appwrite";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -23,7 +22,7 @@ import { Button } from "./ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
 //React-Query
-import { useQuery, useQueryClient, useMutation } from "react-query";
+import { useQuery } from "react-query";
 
 //Icon
 import { Loader2, Pencil, Trash2 } from "lucide-react";
@@ -38,13 +37,6 @@ const Workout = () => {
     queryFn: () => dispatch(getWorkouts()),
   });
 
-  const queryClient = useQueryClient();
-
-  const { mutate: deleteSelectedWorkout } = useMutation({
-    mutationFn: (id: string) => dispatch(deleteWorkout(id)),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["data"] }),
-  });
-
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -56,14 +48,12 @@ const Workout = () => {
   return (
     <div className="container my-8">
       <Table>
-        <TableCaption>A list of your recent workouts.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Exercise</TableHead>
             <TableHead>Weight</TableHead>
             <TableHead>Reps</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead className="text-right"></TableHead>
+            <TableHead></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -81,29 +71,20 @@ const Workout = () => {
                       </TableCell>
                       <TableCell>{weight}</TableCell>
                       <TableCell>{reps}</TableCell>
-                      <TableCell>{date}</TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex gap-1">
-                          <Dialog>
-                            <DialogTrigger asChild>
-                              <Button variant={"ghost"}>
-                                <Pencil className="w-4 h-4" />
-                              </Button>
-                            </DialogTrigger>
-                            <UpdateExercise
-                              exercise={exercise}
-                              weight={weight}
-                              reps={reps}
-                              id={$id}
-                            />
-                          </Dialog>
-                          <Button
-                            variant={"destructive"}
-                            onClick={() => deleteSelectedWorkout($id)}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
+                      <TableCell>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button variant={"ghost"}>
+                              <Pencil className="w-4 h-4" />
+                            </Button>
+                          </DialogTrigger>
+                          <UpdateExercise
+                            exercise={exercise}
+                            weight={weight}
+                            reps={reps}
+                            id={$id}
+                          />
+                        </Dialog>
                       </TableCell>
                     </TableRow>
                   );

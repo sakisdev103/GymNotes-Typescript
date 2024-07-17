@@ -1,5 +1,5 @@
 //File
-import { updateWorkout } from "@/state/workout/workoutSlice";
+import { updateWorkout, deleteWorkout } from "@/state/workout/workoutSlice";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -46,9 +46,15 @@ const UpdateExercise = ({ exercise, weight, reps, id }: state) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const queryClient = useQueryClient();
+
   const { mutate: update } = useMutation({
     mutationFn: (payload: z.infer<typeof formSchema>) =>
       dispatch(updateWorkout({ id, payload })),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["data"] }),
+  });
+
+  const { mutate: deleteSelectedWorkout } = useMutation({
+    mutationFn: (id: string) => dispatch(deleteWorkout(id)),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["data"] }),
   });
 
@@ -80,7 +86,7 @@ const UpdateExercise = ({ exercise, weight, reps, id }: state) => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{exercise.toUpperCase()}</DialogTitle>
-          <DialogDescription>Add workout details.</DialogDescription>
+          <DialogDescription>Update / Delete workout.</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-8">
@@ -110,11 +116,19 @@ const UpdateExercise = ({ exercise, weight, reps, id }: state) => {
                 </FormItem>
               )}
             />
-            <DialogClose asChild>
-              <Button type="submit" className="w-full">
-                Save
-              </Button>
-            </DialogClose>
+            <div className="flex justify-evenly items-center">
+              <DialogClose asChild>
+                <Button type="submit">Update</Button>
+              </DialogClose>
+              <DialogClose asChild>
+                <Button
+                  variant={"destructive"}
+                  onClick={() => deleteSelectedWorkout(id)}
+                >
+                  Delete
+                </Button>
+              </DialogClose>
+            </div>
           </form>
         </Form>
       </DialogContent>
