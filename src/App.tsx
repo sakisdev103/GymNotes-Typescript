@@ -4,14 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PrivateRoutes from "./utils/PrivateRoutes";
 
 //UI
-import {
-  Login,
-  Register,
-  Home,
-  Profile,
-  CategoriesList,
-  Exercises,
-} from "./features";
+import { Login, Register, Home, CategoriesList, Exercises } from "./features";
 
 //React-Query
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -28,7 +21,6 @@ const App = () => {
 
           <Route element={<PrivateRoutes />}>
             <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/categoriesList" element={<CategoriesList />} />
             <Route path="/categoriesList/:id" element={<Exercises />} />
           </Route>
