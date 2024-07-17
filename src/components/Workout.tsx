@@ -25,7 +25,7 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { useQuery } from "react-query";
 
 //Icon
-import { Loader2, Pencil, Trash2 } from "lucide-react";
+import { Loader2, Pencil } from "lucide-react";
 
 const Workout = () => {
   const dispatch = useDispatch<AppDispatch>();
