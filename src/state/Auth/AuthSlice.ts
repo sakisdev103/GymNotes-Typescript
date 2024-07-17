@@ -101,6 +101,7 @@ const authSlice = createSlice({
         } else {
           state.loggedInUser = action.payload;
           toast.dismiss();
+          toast.success("Successfully logged in as Demo User");
         }
         state.loading = false;
       })
@@ -115,6 +116,7 @@ const authSlice = createSlice({
         } else {
           state.loggedInUser = action.payload;
           toast.dismiss();
+          toast.success("Successfully logged in");
         }
         state.loading = false;
       })
