@@ -5,6 +5,9 @@ import { updateWorkout } from "@/state/workout/workoutSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
 
+//React-Query
+import { useQueryClient, useMutation } from "react-query";
+
 //React-form / zod
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +21,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-
 import {
   Form,
   FormControl,
@@ -43,6 +45,13 @@ const UpdateExercise = ({ exercise, weight, reps, id }: state) => {
 
   const dispatch = useDispatch<AppDispatch>();
 
+  const queryClient = useQueryClient();
+  const { mutate: update } = useMutation({
+    mutationFn: (payload: z.infer<typeof formSchema>) =>
+      dispatch(updateWorkout({ id, payload })),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["data"] }),
+  });
+
   const formSchema = z.object({
     username: z.string(),
     exercise: z.string(),
@@ -63,7 +72,7 @@ const UpdateExercise = ({ exercise, weight, reps, id }: state) => {
   });
 
   const onSubmit = (payload: z.infer<typeof formSchema>) => {
-    dispatch(updateWorkout({ id, payload }));
+    update(payload);
   };
 
   return (

@@ -23,23 +23,26 @@ import { Button } from "./ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
 //React-Query
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient, useMutation } from "react-query";
 
 //Icon
 import { Loader2, Pencil, Trash2 } from "lucide-react";
 
 const Workout = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { loggedInUser } = useSelector((state: RootState) => state.auth);
   const stateDate = useSelector((state: RootState) => state.date.date);
-
-  const queryClient = useQueryClient();
-
-  queryClient.invalidateQueries();
+  const { loggedInUser } = useSelector((state: RootState) => state.auth);
 
   const { data, isLoading } = useQuery({
     queryKey: ["data"],
     queryFn: () => dispatch(getWorkouts()),
+  });
+
+  const queryClient = useQueryClient();
+
+  const { mutate: deleteSelectedWorkout } = useMutation({
+    mutationFn: (id: string) => dispatch(deleteWorkout(id)),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["data"] }),
   });
 
   if (isLoading) {
@@ -96,7 +99,7 @@ const Workout = () => {
                           </Dialog>
                           <Button
                             variant={"destructive"}
-                            onClick={() => dispatch(deleteWorkout($id))}
+                            onClick={() => deleteSelectedWorkout($id)}
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>
