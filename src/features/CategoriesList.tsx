@@ -47,7 +47,7 @@ const Categories = () => {
                 return (
                   <TableRow key={category}>
                     <TableCell className="font-medium">
-                      <Button variant={"link"} asChild>
+                      <Button variant={"link"} className="px-0" asChild>
                         <Link to={`./${category}`}>
                           {category.toUpperCase()}
                         </Link>

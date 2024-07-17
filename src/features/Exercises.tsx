@@ -59,7 +59,9 @@ const Exercises = () => {
                   <TableCell className="font-medium">
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button variant={"link"}>{name.toUpperCase()}</Button>
+                        <Button variant={"link"} className="px-0">
+                          {name.toUpperCase()}
+                        </Button>
                       </DialogTrigger>
                       <CreateExercise exercise={name} />
                     </Dialog>
