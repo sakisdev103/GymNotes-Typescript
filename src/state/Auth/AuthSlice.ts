@@ -29,6 +29,16 @@ export const getUserData = createAsyncThunk("getUserData", async () => {
   }
 });
 
+export const demoUser = createAsyncThunk("demoUser", async () => {
+  try {
+    await account.createEmailPasswordSession("demo@demo.com", "password123");
+    let accountDetails = await account.get();
+    return accountDetails;
+  } catch (error) {
+    return (error as any).message;
+  }
+});
+
 export const loginUser = createAsyncThunk(
   "loginUser",
   async ({ email, password }: loginUserState) => {
@@ -78,6 +88,20 @@ const authSlice = createSlice({
     builder
       .addCase(getUserData.fulfilled, (state, action) => {
         state.loggedInUser = action.payload;
+        state.loading = false;
+      })
+      .addCase(demoUser.pending, (state) => {
+        toast("Logging in...");
+        state.loading = true;
+      })
+      .addCase(demoUser.fulfilled, (state, action) => {
+        if (typeof action.payload === "string") {
+          toast.dismiss();
+          toast.error(action.payload);
+        } else {
+          state.loggedInUser = action.payload;
+          toast.dismiss();
+        }
         state.loading = false;
       })
       .addCase(loginUser.pending, (state) => {

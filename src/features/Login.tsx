@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
 
 //File
-import { loginUser, logoutUser } from "@/state/Auth/AuthSlice";
+import { loginUser, demoUser } from "@/state/Auth/AuthSlice";
 
 //React-form / zod
 import { useForm } from "react-hook-form";
@@ -109,7 +109,15 @@ const Login = () => {
             <Link to="/register">Register</Link>
           </Button>
         </p>
-        <Button onClick={() => dispatch(logoutUser())}>log out</Button>
+        <div className="mt-10">
+          <Button
+            variant={"secondary"}
+            className="w-full"
+            onClick={() => dispatch(demoUser())}
+          >
+            Explore The App
+          </Button>
+        </div>
       </div>
     </div>
   );
