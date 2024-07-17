@@ -48,6 +48,18 @@ export const updateWorkout = createAsyncThunk(
   }
 );
 
+export const deleteWorkout = createAsyncThunk(
+  "deleteWorkout",
+  async (id: string) => {
+    try {
+      const response = await db.workouts.delete(id);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const workoutSlice = createSlice({
   name: "Workouts",
   initialState,
@@ -64,7 +76,9 @@ const workoutSlice = createSlice({
       .addCase(updateWorkout.fulfilled, (state, action) => {
         state.documents = action.payload;
         toast.success("Successfully updated workout!");
-        console.log(action.payload);
+      })
+      .addCase(deleteWorkout.fulfilled, () => {
+        toast.success("Successfully deleted workout!");
       });
   },
 });

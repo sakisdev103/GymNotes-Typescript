@@ -4,7 +4,7 @@ import { UpdateExercise } from "@/features";
 //Redux
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
-import { getWorkouts } from "@/state/workout/workoutSlice";
+import { deleteWorkout, getWorkouts } from "@/state/workout/workoutSlice";
 
 //Types
 import { Models } from "appwrite";
@@ -94,7 +94,10 @@ const Workout = () => {
                               id={$id}
                             />
                           </Dialog>
-                          <Button variant={"destructive"}>
+                          <Button
+                            variant={"destructive"}
+                            onClick={() => dispatch(deleteWorkout($id))}
+                          >
                             <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
