@@ -66,9 +66,7 @@ const Workout = () => {
                 if (stateDate === date) {
                   return (
                     <TableRow key={index}>
-                      <TableCell className="font-medium">
-                        {exercise.toUpperCase()}
-                      </TableCell>
+                      <TableCell className="font-medium">{exercise}</TableCell>
                       <TableCell>{weight}</TableCell>
                       <TableCell>{reps}</TableCell>
                       <TableCell>

@@ -63,7 +63,7 @@ const CreateExercise = ({ exercise }: { exercise: string }) => {
     <>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{exercise.toUpperCase()}</DialogTitle>
+          <DialogTitle>{exercise}</DialogTitle>
           <DialogDescription>Add workout details.</DialogDescription>
         </DialogHeader>
         <Form {...form}>

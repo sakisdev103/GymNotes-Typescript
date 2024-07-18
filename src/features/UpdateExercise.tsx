@@ -85,7 +85,7 @@ const UpdateExercise = ({ exercise, weight, reps, id }: state) => {
     <>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{exercise.toUpperCase()}</DialogTitle>
+          <DialogTitle>{exercise}</DialogTitle>
           <DialogDescription>Update / Delete workout.</DialogDescription>
         </DialogHeader>
         <Form {...form}>
