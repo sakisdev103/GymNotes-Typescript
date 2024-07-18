@@ -17,12 +17,12 @@ const LoadingSkeleton = () => {
         <TableHeader>
           <TableRow>
             <TableHead>
-              <Skeleton className="w-2/6 h-6" />
+              <Skeleton className="w-1/6 h-6" />
             </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {"abcdefghklmnop".split("").map((index) => {
+          {"abcdef".split("").map((index) => {
             return (
               <TableRow key={index}>
                 <TableCell>
