@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
+
 //Files
-import { customFetch } from "@/utils/customFetch";
 import { GoBack } from "@/components";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
+
+//Redux
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/state/store";
+import { getCategories } from "@/state/Categories/categoriesSlice";
 
 //UI
 import {
@@ -19,14 +24,21 @@ import { Button } from "@/components/ui/button";
 import { useQuery } from "react-query";
 
 const Categories = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const { data: categories, isLoading } = useQuery({
     queryKey: ["categories"],
-    queryFn: () => customFetch.get("/targetList"),
+    queryFn: () => dispatch(getCategories()),
   });
 
   if (isLoading) {
     return <LoadingSkeleton />;
   }
+
+  type state = {
+    category_name: string;
+    exercises: [];
+  };
 
   return (
     <div>
@@ -39,23 +51,21 @@ const Categories = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {categories?.data
-              .filter(
-                (category: string) => category !== "cardiovascular system"
-              )
-              .map((category: string) => {
+            {categories?.payload.documents.map(
+              ({ category_name, exercises }: state) => {
                 return (
-                  <TableRow key={category}>
+                  <TableRow key={category_name}>
                     <TableCell className="font-medium">
                       <Button variant={"link"} className="px-0" asChild>
-                        <Link to={`./${category}`}>
-                          {category.toUpperCase()}
+                        <Link to={`./${category_name}`} state={{ exercises }}>
+                          {category_name}
                         </Link>
                       </Button>
                     </TableCell>
                   </TableRow>
                 );
-              })}
+              }
+            )}
           </TableBody>
         </Table>
       </div>

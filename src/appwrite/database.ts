@@ -5,8 +5,13 @@ import { Models } from "appwrite";
 const collections = [
   {
     dbId: import.meta.env.VITE_DATABASE_ID,
-    id: import.meta.env.VITE_COLLECTION_ID,
+    id: import.meta.env.VITE_COLLECTION_WORKOUTS_ID,
     name: "workouts",
+  },
+  {
+    dbId: import.meta.env.VITE_DATABASE_ID,
+    id: import.meta.env.VITE_COLLECTION_CATEGORIES_ID,
+    name: "categories",
   },
 ];
 const db: any = {};

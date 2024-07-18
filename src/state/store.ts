@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./Auth/AuthSlice";
 import workoutReducer from "./workout/workoutSlice";
 import dateReducer from "./Date/dateSlice";
+import categoriesReducer from "./Categories/categoriesSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     workout: workoutReducer,
     date: dateReducer,
+    categories: categoriesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
