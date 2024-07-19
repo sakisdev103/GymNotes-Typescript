@@ -14,7 +14,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const Exercises = () => {
   const { state } = useLocation();
@@ -39,7 +46,15 @@ const Exercises = () => {
                           {item}
                         </Button>
                       </DialogTrigger>
-                      <CreateExercise exercise={item} />
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>{item}</DialogTitle>
+                          <DialogDescription>
+                            Add workout details.
+                          </DialogDescription>
+                        </DialogHeader>
+                        <CreateExercise exercise={item} />
+                      </DialogContent>
                     </Dialog>
                   </TableCell>
                 </TableRow>
