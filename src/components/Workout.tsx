@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
 import { getWorkouts } from "@/state/workout/workoutSlice";
 
+//React-Query
+import { useQuery } from "react-query";
+
 //Types
 import { Models } from "appwrite";
 
@@ -18,10 +21,14 @@ import {
   TableCell,
   TableRow,
 } from "@/components/ui/table";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-
-//React-Query
-import { useQuery } from "react-query";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 //Icon
 import { Loader2 } from "lucide-react";
@@ -83,12 +90,20 @@ const Workout = () => {
                           </TableCell>
                         </TableRow>
                       </DialogTrigger>
-                      <UpdateExercise
-                        exercise={exercise}
-                        weight={weight}
-                        reps={reps}
-                        id={$id}
-                      />
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>{exercise}</DialogTitle>
+                          <DialogDescription>
+                            Update / Delete workout.
+                          </DialogDescription>
+                        </DialogHeader>
+                        <UpdateExercise
+                          exercise={exercise}
+                          weight={weight}
+                          reps={reps}
+                          id={$id}
+                        />
+                      </DialogContent>
                     </Dialog>
                   );
                 }
