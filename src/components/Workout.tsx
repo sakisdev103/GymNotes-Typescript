@@ -1,10 +1,10 @@
 //File
 import { UpdateExercise } from "@/features";
+import { getWorkouts } from "@/state/workout/workoutSlice";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
-import { getWorkouts } from "@/state/workout/workoutSlice";
 
 //React-Query
 import { useQuery } from "react-query";

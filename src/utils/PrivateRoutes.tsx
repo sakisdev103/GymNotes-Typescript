@@ -1,11 +1,12 @@
+import { useEffect } from "react";
 import { Outlet, Navigate } from "react-router-dom";
+
+//File
+import { getUserData } from "@/state/Auth/AuthSlice";
 
 //Redux
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/state/store";
-
-import { getUserData } from "@/state/Auth/AuthSlice";
-import { useEffect } from "react";
 
 const PrivateRoutes = () => {
   const dispatch = useDispatch<AppDispatch>();
