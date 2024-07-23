@@ -1,30 +1,67 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# GymNotes
 
-Currently, two official plugins are available:
+GymNotes is a web application designed to help users track their performance in various gym exercises. The application features a responsive design, mobile-friendly interface, and an elegant appearance.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
 
-## Expanding the ESLint configuration
+- [Features](#features)
+- [Installation](#installation)
+- [Technologies](#technologies)
+- [Usage](#usage)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Features
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- **Responsive Design**: Optimized for various screen sizes.
+- **Mobile Friendly**: Easily accessible on mobile devices.
+- **Elegant Appearance**: Clean and modern design.
+- **User Authentication**: Log in / log out, register page, and protected routes.
+- **Workout Management**: Add workouts and fetch workouts based on filters.
+
+
+## Dependencies
+
+To run this project, you need to create an account in [Appwrite](https://appwrite.io/) to obtain the necessary credentials.
+
+## Installation Instructions
+
+To set up and run GymNotes locally, follow these steps:
+
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/sakisdev103/GymNotes-Typescript.git
+    ```
+
+2. **Navigate to the project directory**:
+    ```bash
+    cd GymNotes-Typescript
+    ```
+
+3. **Install the dependencies**:
+    ```bash
+    npm install
+    ```
+
+4. **Start the application**:
+    ```bash
+    npm run dev
+    ```
+
+    ## Technologies Used
+
+- **HTML**: Provides the foundational structure for web pages.
+- **Tailwind CSS**: A utility-first CSS framework for creating responsive, modern designs.
+- **Shadcn**: A component library built on Tailwind CSS, offering customizable and pre-designed UI components.
+- **TypeScript**: A statically typed superset of JavaScript that enhances code quality and maintainability.
+- **ReactJS**: A powerful library for building dynamic user interfaces.
+- **Redux Toolkit**: A comprehensive toolset for efficient state management in Redux.
+- **React Hook Form**: A performant library for managing form state and validation in React applications.
+## Usage Instructions
+
+1. **Create an Account**: Sign up for an account on the application.
+2. **Log In**: Use your credentials to log in.
+3. **Add Workouts**: Navigate to the workout section and add your exercises.
+4. **Filter Workouts**: Use the filter options to view specific workouts.
+
