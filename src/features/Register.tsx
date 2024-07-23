@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+//File
+import { registerUser } from "@/state/Auth/AuthSlice";
+
 //Redux
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
-
-//File
-import { registerUser } from "@/state/Auth/AuthSlice";
 
 //React-form / zod
 import { useForm } from "react-hook-form";

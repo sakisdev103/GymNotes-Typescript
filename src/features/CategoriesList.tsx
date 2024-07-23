@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 //Files
 import { GoBack } from "@/components";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
+import { getCategories } from "@/state/Categories/categoriesSlice";
 
 //Redux
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/state/store";
-import { getCategories } from "@/state/Categories/categoriesSlice";
 
 //UI
 import {

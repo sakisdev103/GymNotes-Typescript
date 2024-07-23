@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 //File
 import PrivateRoutes from "./utils/PrivateRoutes";
 
-//UI
-import { Login, Register, Home, CategoriesList, Exercises } from "./features";
-
 //React-Query
 import { QueryClient, QueryClientProvider } from "react-query";
+
+//UI
+import { Login, Register, Home, CategoriesList, Exercises } from "./features";
 
 const queryClient = new QueryClient();
 

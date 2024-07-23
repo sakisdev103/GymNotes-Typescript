@@ -14,13 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 //UI
-import {
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { DialogClose } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -82,57 +76,49 @@ const UpdateExercise = ({ exercise, weight, reps, id }: state) => {
   };
 
   return (
-    <>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{exercise}</DialogTitle>
-          <DialogDescription>Update / Delete workout.</DialogDescription>
-        </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-8">
-            <FormField
-              control={form.control}
-              name="weight"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Weight</FormLabel>
-                  <FormControl>
-                    <Input type="number" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="reps"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Reps</FormLabel>
-                  <FormControl>
-                    <Input type="number" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="flex justify-evenly items-center">
-              <DialogClose asChild>
-                <Button type="submit">Update</Button>
-              </DialogClose>
-              <DialogClose asChild>
-                <Button
-                  variant={"destructive"}
-                  onClick={() => deleteSelectedWorkout(id)}
-                >
-                  Delete
-                </Button>
-              </DialogClose>
-            </div>
-          </form>
-        </Form>
-      </DialogContent>
-    </>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-8">
+        <FormField
+          control={form.control}
+          name="weight"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Weight</FormLabel>
+              <FormControl>
+                <Input type="number" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="reps"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Reps</FormLabel>
+              <FormControl>
+                <Input type="number" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className="flex justify-evenly items-center">
+          <DialogClose asChild>
+            <Button type="submit">Update</Button>
+          </DialogClose>
+          <DialogClose asChild>
+            <Button
+              variant={"destructive"}
+              onClick={() => deleteSelectedWorkout(id)}
+            >
+              Delete
+            </Button>
+          </DialogClose>
+        </div>
+      </form>
+    </Form>
   );
 };
 export default UpdateExercise;

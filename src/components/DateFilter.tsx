@@ -1,17 +1,18 @@
 import * as React from "react";
 
+//File
+import { updateDates } from "@/state/Date/dateSlice";
+
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "@/state/store";
-import { RootState } from "@/state/store";
-import { updateDates } from "@/state/Date/dateSlice";
+import { AppDispatch, RootState } from "@/state/store";
+
+import { format } from "date-fns";
 
 //UI
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
 import { Button } from "./ui/button";
-
-import { format } from "date-fns";
 
 //Icons
 import { Calendar as CalendarIcon } from "lucide-react";
