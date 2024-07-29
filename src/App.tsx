@@ -16,14 +16,21 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/GymNotes-Typescript/login" element={<Login />} />
+          <Route path="/GymNotes-Typescript/register" element={<Register />} />
 
           <Route element={<PrivateRoutes />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/categoriesList" element={<CategoriesList />} />
-            <Route path="/categoriesList/:id" element={<Exercises />} />
+            <Route path="/GymNotes-Typescript/" element={<Home />} />
+            <Route
+              path="/GymNotes-Typescript/categoriesList"
+              element={<CategoriesList />}
+            />
+            <Route
+              path="/GymNotes-Typescript/categoriesList/:id"
+              element={<Exercises />}
+            />
           </Route>
+          <Route path="*" element={<h1>Page not found</h1>} />
         </Routes>
       </Router>
     </QueryClientProvider>

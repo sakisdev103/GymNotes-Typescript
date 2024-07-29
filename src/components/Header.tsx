@@ -24,7 +24,7 @@ const Header = () => {
         </Button>
         <h3>{loggedInUser.name}</h3>
         <Button asChild variant={"ghost"}>
-          <Link to="/categoriesList">
+          <Link to="/GymNotes-Typescript/categoriesList">
             <Plus />
           </Link>
         </Button>

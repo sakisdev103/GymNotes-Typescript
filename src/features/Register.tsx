@@ -32,7 +32,7 @@ const Register = () => {
 
   useEffect(() => {
     if (loggedInUser) {
-      navigate("/");
+      navigate("/GymNotes-Typescript/");
     }
   }, [loggedInUser]);
 
@@ -124,7 +124,7 @@ const Register = () => {
         <p>
           You have an account?
           <Button variant="link" asChild>
-            <Link to="/login">Login</Link>
+            <Link to="/GymNotes-Typescript/login">Login</Link>
           </Button>
         </p>
       </div>
