@@ -23,7 +23,6 @@ export const getUserData = createAsyncThunk("getUserData", async () => {
     return await account.get();
   } catch (error) {
     if (((error as any).code = 401)) {
-      console.log("not logged in");
       return null;
     }
   }
