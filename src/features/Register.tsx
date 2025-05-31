@@ -124,7 +124,7 @@ const Register = () => {
         <p>
           You have an account?
           <Button variant="link" asChild>
-            <Link to="/GymNotes-Typescript/login">Login</Link>
+            <Link to="/login">Login</Link>
           </Button>
         </p>
       </div>

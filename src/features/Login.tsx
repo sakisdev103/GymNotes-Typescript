@@ -106,7 +106,7 @@ const Login = () => {
         <p>
           Don't have an account?
           <Button variant="link" asChild>
-            <Link to="/GymNotes-Typescript/register">Register</Link>
+            <Link to="/register">Register</Link>
           </Button>
         </p>
         <div className="mt-10">
