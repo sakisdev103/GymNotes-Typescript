@@ -32,7 +32,7 @@ const Login = () => {
 
   useEffect(() => {
     if (loggedInUser) {
-      navigate("/GymNotes-Typescript/");
+      navigate("/");
     }
   }, [loggedInUser]);
 

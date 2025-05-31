@@ -15,10 +15,6 @@ const PrivateRoutes = () => {
   }, []);
   const { loggedInUser } = useSelector((state: RootState) => state.auth);
 
-  return loggedInUser ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/GymNotes-Typescript/login" />
-  );
+  return loggedInUser ? <Outlet /> : <Navigate to="/login" />;
 };
 export default PrivateRoutes;

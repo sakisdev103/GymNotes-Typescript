@@ -32,7 +32,7 @@ const Register = () => {
 
   useEffect(() => {
     if (loggedInUser) {
-      navigate("/GymNotes-Typescript/");
+      navigate("/");
     }
   }, [loggedInUser]);
 
